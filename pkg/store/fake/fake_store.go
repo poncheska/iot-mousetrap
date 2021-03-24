@@ -12,11 +12,13 @@ type Repository struct {
 }
 
 type MousetrapStore struct {
-	repo *Repository
+	repo   *Repository
+	lastId int64
 }
 
 type OrganisationStore struct {
-	repo *Repository
+	repo   *Repository
+	lastId int64
 }
 
 func NewFakeStore() store.Store {
@@ -58,6 +60,9 @@ func (ms *MousetrapStore) Create(mt models.Mousetrap) error {
 				mt.OrgName, mt.Name)
 		}
 	}
+	mt.Id = ms.lastId
+	ms.lastId ++
+	ms.repo.Mousetraps = append(ms.repo.Mousetraps, mt)
 	return nil
 }
 
@@ -74,5 +79,8 @@ func (os *OrganisationStore) Create(org models.Organisation) error {
 			return fmt.Errorf("organisation with name = %v already exist", org.Name)
 		}
 	}
+	org.Id = os.lastId
+	os.lastId ++
+	os.repo.Organisations = append(os.repo.Organisations, org)
 	return nil
 }
