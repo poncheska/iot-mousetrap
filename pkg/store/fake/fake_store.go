@@ -61,9 +61,31 @@ func (ms *MousetrapStore) Create(mt models.Mousetrap) error {
 		}
 	}
 	mt.Id = ms.lastId
-	ms.lastId ++
+	ms.lastId++
 	ms.repo.Mousetraps = append(ms.repo.Mousetraps, mt)
 	return nil
+}
+
+func (ms *MousetrapStore) Update(mt models.Mousetrap) error {
+	for i, v := range ms.repo.Mousetraps {
+		if v.Id == mt.Id {
+			if v.Name != mt.Name || v.OrgName != mt.Name {
+				return fmt.Errorf("invalid mousetrap")
+			}
+			ms.repo.Mousetraps[i] = mt
+			return nil
+		}
+	}
+	return nil
+}
+
+func (ms *MousetrapStore) GetByName(name, orgName string) (models.Mousetrap, error) {
+	for _, v := range ms.repo.Mousetraps {
+		if v.Name == name && v.OrgName == orgName {
+			return v, nil
+		}
+	}
+	return models.Mousetrap{}, fmt.Errorf("no mousetrap with name = %v and org_name = %v", name, orgName)
 }
 
 func (os *OrganisationStore) GetByCredentials(name, password string) (models.Organisation, error) {
@@ -80,7 +102,7 @@ func (os *OrganisationStore) Create(org models.Organisation) error {
 		}
 	}
 	org.Id = os.lastId
-	os.lastId ++
+	os.lastId++
 	os.repo.Organisations = append(os.repo.Organisations, org)
 	return nil
 }

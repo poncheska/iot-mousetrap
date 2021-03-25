@@ -3,11 +3,11 @@ package models
 import "time"
 
 type Mousetrap struct {
-	Id          int64
-	Name        string
-	OrgName     string
-	Status      bool
-	LastTrigger time.Time
+	Id          int64     `json:"id"`
+	Name        string    `json:"name"`
+	OrgName     string    `json:"org_name"`
+	Status      bool      `json:"status"`
+	LastTrigger time.Time `json:"last_trigger"`
 }
 
 type Organisation struct {
@@ -18,5 +18,5 @@ type Organisation struct {
 
 type Credentials struct {
 	Name     string `json:"name"`
-	Password string	`json:"pass"`
+	Password string `json:"pass"`
 }
