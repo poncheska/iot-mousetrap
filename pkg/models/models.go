@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Mousetrap struct {
 	Id          int64     `json:"id"`
@@ -19,4 +22,11 @@ type Organisation struct {
 type Credentials struct {
 	Name     string `json:"name"`
 	Password string `json:"pass"`
+}
+
+func (c Credentials) CheckNotEmpty() error {
+	if c.Password == "" || c.Name == "" {
+		return fmt.Errorf("username or password is empty")
+	}
+	return nil
 }

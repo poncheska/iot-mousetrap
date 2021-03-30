@@ -43,34 +43,40 @@ func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
 	var res []models.Mousetrap
 	for _, v := range ms.repo.Mousetraps {
 		if v.OrgName == name {
-			name = v.Name
 			res = append(res, v)
 		}
 	}
 	return res, nil
 }
 
-func (ms *MousetrapStore) Create(mt models.Mousetrap) error {
-	for _, v := range ms.repo.Mousetraps {
-		if mt.Id == v.Id {
-			return fmt.Errorf("mousetrap with id = %v already exist", mt.Id)
+func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
+	org := true
+	for _, v := range ms.repo.Organisations {
+		if v.Name == mt.OrgName {
+			org = false
+			break
 		}
+	}
+	if org {
+		return 0, fmt.Errorf("invalid org_name")
+	}
+	for _, v := range ms.repo.Mousetraps {
 		if mt.OrgName == v.OrgName && mt.Name == v.Name {
-			return fmt.Errorf("mousetrap with org_name = %v and name = %v already exist",
+			return 0, fmt.Errorf("mousetrap with org_name = %v and name = %v already exist",
 				mt.OrgName, mt.Name)
 		}
 	}
 	mt.Id = ms.lastId
 	ms.lastId++
 	ms.repo.Mousetraps = append(ms.repo.Mousetraps, mt)
-	return nil
+	return mt.Id, nil
 }
 
 func (ms *MousetrapStore) Update(mt models.Mousetrap) error {
 	for i, v := range ms.repo.Mousetraps {
 		if v.Id == mt.Id {
-			if v.Name != mt.Name || v.OrgName != mt.Name {
-				return fmt.Errorf("invalid mousetrap")
+			if v.Name != mt.Name || v.OrgName != mt.OrgName {
+				return fmt.Errorf("invalid mousetrap %v/%v", v.OrgName, v.Name)
 			}
 			ms.repo.Mousetraps[i] = mt
 			return nil
@@ -89,20 +95,26 @@ func (ms *MousetrapStore) GetByName(name, orgName string) (models.Mousetrap, err
 }
 
 func (os *OrganisationStore) GetByCredentials(name, password string) (models.Organisation, error) {
-	return models.Organisation{}, nil
+	for _, v := range os.repo.Organisations {
+		if v.Name == name {
+			if v.Password == password {
+				return v, nil
+			} else {
+				return models.Organisation{}, fmt.Errorf("invalid password")
+			}
+		}
+	}
+	return models.Organisation{}, fmt.Errorf("no such organisation")
 }
 
-func (os *OrganisationStore) Create(org models.Organisation) error {
+func (os *OrganisationStore) Create(org models.Organisation) (int64, error) {
 	for _, v := range os.repo.Organisations {
-		if org.Id == v.Id {
-			return fmt.Errorf("organisation with id = %v already exist", org.Id)
-		}
 		if org.Name == v.Name {
-			return fmt.Errorf("organisation with name = %v already exist", org.Name)
+			return 0, fmt.Errorf("organisation with name = %v already exist", org.Name)
 		}
 	}
 	org.Id = os.lastId
 	os.lastId++
 	os.repo.Organisations = append(os.repo.Organisations, org)
-	return nil
+	return org.Id, nil
 }
