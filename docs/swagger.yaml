@@ -12,7 +12,7 @@ definitions:
       pass:
         type: string
     type: object
-host: localhost:8080
+host: smart-mousetrap.herokuapp.com
 info:
   contact: {}
   description: Server for the IOT project Smart Mousetrap
