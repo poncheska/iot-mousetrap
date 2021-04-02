@@ -1,0 +1,187 @@
+basePath: /
+definitions:
+  http.errorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Credentials:
+    properties:
+      name:
+        type: string
+      pass:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Server for the IOT project Smart Mousetrap
+  title: Smart Mousetrap
+  version: "1.0"
+paths:
+  /mousetraps:
+    get:
+      consumes:
+      - application/json
+      description: get mousetraps info by org id
+      operationId: get-mousetraps
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Mousetraps
+      tags:
+      - organisation
+  /org/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: login
+      operationId: login
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Credentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      summary: SignIn
+      tags:
+      - auth
+  /org/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: create account
+      operationId: create-account
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Credentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      summary: SignUp
+      tags:
+      - auth
+  /trigger/{org}/{name}/{status}:
+    get:
+      consumes:
+      - application/json
+      description: update mousetrap status
+      operationId: trigger-mousetrap
+      parameters:
+      - description: Organisation name
+        in: path
+        name: org
+        required: true
+        type: string
+      - description: Mousetrap name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: Mousetrap status 0=off 1=on
+        in: path
+        name: status
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      summary: Trigger mousetrap
+      tags:
+      - mousetrap
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

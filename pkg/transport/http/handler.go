@@ -18,14 +18,30 @@ type Handler struct {
 	tokenService utils.TokenService
 }
 
+type errorResponse struct {
+	Message string `json:"message"`
+}
+
 func WriteJSONError(w http.ResponseWriter, errStr string, status int) {
 	w.WriteHeader(status)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": errStr,
+	json.NewEncoder(w).Encode(errorResponse{
+		Message: errStr,
 	})
 }
 
+// @Summary Get Mousetraps
+// @Security ApiKeyAuth
+// @Tags organisation
+// @Description get mousetraps info by org id
+// @ID get-mousetraps
+// @Accept  json
+// @Produce  json
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /mousetraps [get]
 func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 	orgId, err:= strconv.ParseInt(r.Header.Get(orgIdHeader),10,64)
 	if err != nil {
@@ -47,6 +63,20 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(mt)
 }
 
+// @Summary Trigger mousetrap
+// @Tags mousetrap
+// @Description update mousetrap status
+// @ID trigger-mousetrap
+// @Accept  json
+// @Produce  json
+// @Param org path string true "Organisation name"
+// @Param name path string true "Mousetrap name"
+// @Param status path int true "Mousetrap status 0=off 1=on"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /trigger/{org}/{name}/{status} [get]
 func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
@@ -59,6 +89,7 @@ func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 		status = true
 	} else {
 		log.Printf("mousetrap %v/%v triggered: %v with invalid status", orgName, name, tm)
+		WriteJSONError(w, "invalid status", http.StatusBadRequest)
 		return
 	}
 
@@ -71,6 +102,7 @@ func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 		})
 		if err != nil {
 			log.Printf("mousetrap %v/%v triggered with error: %v", orgName, name, err)
+			WriteJSONError(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		log.Printf("mousetrap %v/%v created with id = %v", orgName, name, id)
@@ -92,6 +124,18 @@ func (h Handler) GetLog(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(h.Logs.Logs))
 }
 
+// @Summary SignIn
+// @Tags auth
+// @Description login
+// @ID login
+// @Accept  json
+// @Produce  json
+// @Param input body models.Credentials true "credentials"
+// @Success 200 {string} string "token"
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /org/sign-in [post]
 func (h Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 	cred := &models.Credentials{}
 	if err := json.NewDecoder(r.Body).Decode(cred); err != nil {
@@ -130,6 +174,18 @@ func (h Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 }
 
+// @Summary SignUp
+// @Tags auth
+// @Description create account
+// @ID create-account
+// @Accept  json
+// @Produce  json
+// @Param input body models.Credentials true "credentials"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /org/sign-up [post]
 func (h Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 	cred := &models.Credentials{}
 	err := json.NewDecoder(r.Body).Decode(cred)
