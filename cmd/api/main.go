@@ -7,7 +7,7 @@ import "github.com/poncheska/iot-mousetrap/pkg/api"
 // @version 1.0
 // @description Server for the IOT project Smart Mousetrap
 
-// @host localhost:8080
+// @host smart-mousetrap.herokuapp.com
 // @BasePath /
 
 // @securityDefinitions.apikey ApiKeyAuth
