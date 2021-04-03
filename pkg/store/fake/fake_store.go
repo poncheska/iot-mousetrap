@@ -42,7 +42,7 @@ func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
 	}
 	var res []models.Mousetrap
 	for _, v := range ms.repo.Mousetraps {
-		if v.OrgName == name {
+		if v.OrgId == OrgId {
 			res = append(res, v)
 		}
 	}
@@ -52,7 +52,7 @@ func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
 func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
 	org := true
 	for _, v := range ms.repo.Organisations {
-		if v.Name == mt.OrgName {
+		if v.Id == mt.OrgId {
 			org = false
 			break
 		}
@@ -61,9 +61,9 @@ func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
 		return 0, fmt.Errorf("invalid org_name")
 	}
 	for _, v := range ms.repo.Mousetraps {
-		if mt.OrgName == v.OrgName && mt.Name == v.Name {
-			return 0, fmt.Errorf("mousetrap with org_name = %v and name = %v already exist",
-				mt.OrgName, mt.Name)
+		if mt.OrgId == v.OrgId && mt.Name == v.Name {
+			return 0, fmt.Errorf("mousetrap with org_id = %v and name = %v already exist",
+				mt.OrgId, mt.Name)
 		}
 	}
 	mt.Id = ms.lastId
@@ -75,8 +75,8 @@ func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
 func (ms *MousetrapStore) Update(mt models.Mousetrap) error {
 	for i, v := range ms.repo.Mousetraps {
 		if v.Id == mt.Id {
-			if v.Name != mt.Name || v.OrgName != mt.OrgName {
-				return fmt.Errorf("invalid mousetrap %v/%v", v.OrgName, v.Name)
+			if v.Name != mt.Name || v.OrgId != mt.OrgId {
+				return fmt.Errorf("invalid mousetrap %v/%v", v.OrgId, v.Name)
 			}
 			ms.repo.Mousetraps[i] = mt
 			return nil
@@ -85,13 +85,13 @@ func (ms *MousetrapStore) Update(mt models.Mousetrap) error {
 	return nil
 }
 
-func (ms *MousetrapStore) GetByName(name, orgName string) (models.Mousetrap, error) {
+func (ms *MousetrapStore) GetByName(name string, orgId int64) (models.Mousetrap, error) {
 	for _, v := range ms.repo.Mousetraps {
-		if v.Name == name && v.OrgName == orgName {
+		if v.Name == name && v.OrgId== orgId {
 			return v, nil
 		}
 	}
-	return models.Mousetrap{}, fmt.Errorf("no mousetrap with name = %v and org_name = %v", name, orgName)
+	return models.Mousetrap{}, fmt.Errorf("no mousetrap with name = %v and org_id = %v", name, orgId)
 }
 
 func (os *OrganisationStore) GetByCredentials(name, password string) (models.Organisation, error) {

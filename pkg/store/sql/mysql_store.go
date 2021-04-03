@@ -33,7 +33,7 @@ func (ms *MousetrapStore) Update(mt models.Mousetrap) error {
 	return nil
 }
 
-func (ms *MousetrapStore) GetByName(name, orgName string) (models.Mousetrap, error) {
+func (ms *MousetrapStore) GetByName(name string, orgId int64) (models.Mousetrap, error) {
 	return models.Mousetrap{}, nil
 }
 

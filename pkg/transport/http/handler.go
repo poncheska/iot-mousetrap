@@ -80,43 +80,48 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
-	orgName := vars["org"]
 	tm := time.Now()
+	orgId, err:= strconv.ParseInt(vars["org"],10,64)
+	if err != nil {
+		log.Printf("mousetrap triggered: %v with invalid org_id", tm)
+		WriteJSONError(w, "invalid status", http.StatusBadRequest)
+		return
+	}
 	var status bool
 	if vars["status"] == "0" {
 		status = false
 	} else if vars["status"] == "1" {
 		status = true
 	} else {
-		log.Printf("mousetrap %v/%v triggered: %v with invalid status", orgName, name, tm)
+		log.Printf("mousetrap %v/%v triggered: %v with invalid status", orgId, name, tm)
 		WriteJSONError(w, "invalid status", http.StatusBadRequest)
 		return
 	}
 
-	if mt, err := h.Store.Mousetrap.GetByName(name, orgName); err != nil {
+	if mt, err := h.Store.Mousetrap.GetByName(name, orgId); err != nil {
 		id, err := h.Store.Mousetrap.Create(models.Mousetrap{
 			Name: name,
-			OrgName: orgName,
+			OrgId: orgId,
 			Status: status,
 			LastTrigger: tm,
 		})
 		if err != nil {
-			log.Printf("mousetrap %v/%v triggered with error: %v", orgName, name, err)
+			log.Printf("mousetrap %v/%v triggered with error: %v", orgId, name, err)
 			WriteJSONError(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-		log.Printf("mousetrap %v/%v created with id = %v", orgName, name, id)
-		log.Printf("mousetrap %v/%v triggered: %v", orgName, name, tm)
+		log.Printf("mousetrap %v/%v created with id = %v", orgId, name, id)
+		log.Printf("mousetrap %v/%v triggered: %v", orgId, name, tm)
 
 	} else {
 		mt.LastTrigger = tm
 		mt.Status = status
 		err := h.Store.Mousetrap.Update(mt)
 		if err != nil {
-			log.Printf("mousetrap %v/%v triggered with error: %v", orgName, name, err)
+			log.Printf("mousetrap %v/%v triggered with error: %v", orgId, name, err)
 			return
 		}
-		log.Printf("mousetrap %v/%v triggered: %v", orgName, name, tm)
+		log.Printf("mousetrap %v/%v triggered: %v", orgId, name, tm)
 	}
 }
 

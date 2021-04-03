@@ -8,7 +8,7 @@ import (
 type Mousetrap struct {
 	Id          int64     `json:"id"`
 	Name        string    `json:"name"`
-	OrgName     string    `json:"org_name"`
+	OrgId       int64     `json:"org_id"`
 	Status      bool      `json:"status"`
 	LastTrigger time.Time `json:"last_trigger"`
 }
