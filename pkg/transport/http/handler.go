@@ -84,7 +84,7 @@ func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 	orgId, err:= strconv.ParseInt(vars["org"],10,64)
 	if err != nil {
 		log.Printf("mousetrap triggered: %v with invalid org_id", tm)
-		WriteJSONError(w, "invalid status", http.StatusBadRequest)
+		WriteJSONError(w, "invalid org_id", http.StatusBadRequest)
 		return
 	}
 	var status bool
