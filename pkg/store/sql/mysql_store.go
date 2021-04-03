@@ -59,7 +59,7 @@ func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
 
 func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
 	res, err := ms.db.Exec("INSERT INTO Mousetrap (name, org_id, status, last_trig) VALUES (?,?,?,?)",
-		mt.Id, mt.Name, mt.Status, mt.LastTrigger.UTC().UnixNano())
+		mt.Name, mt.OrgId, mt.Status, mt.LastTrigger.UTC().UnixNano())
 	if err != nil {
 		return 0, err
 	}
