@@ -43,7 +43,7 @@ func NewMySQLStore(db *sqlx.DB) store.Store {
 func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
 	res := []models.Mousetrap{}
 	dmt := DBMousetrap{}
-	rows, err := ms.db.Queryx("SELECT * FROM place")
+	rows, err := ms.db.Queryx("SELECT * FROM Mousetrap WHERE org_id = ?", OrgId)
 	if err != nil {
 		return nil, err
 	}
