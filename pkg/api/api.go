@@ -1,6 +1,7 @@
 package api
 
 import (
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/poncheska/iot-mousetrap/docs"
