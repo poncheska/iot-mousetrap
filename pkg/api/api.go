@@ -42,7 +42,7 @@ func Start() {
 	r.HandleFunc("/org/sign-in", h.SignIn).Methods(http.MethodPost)
 	r.HandleFunc("/org/sign-up", h.SignUp).Methods(http.MethodPost)
 	r.HandleFunc("/mousetraps", h.AuthChecker(h.GetMousetraps)).Methods(http.MethodGet)
-	r.HandleFunc("/trigger/{org}/{name}/{status:[01]}", h.Trigger).Methods(http.MethodGet)
+	r.HandleFunc("/trigger/{name}/{status:[01]}", h.AuthChecker(h.Trigger)).Methods(http.MethodGet)
 	r.PathPrefix("/swagger/").HandlerFunc(httpSwagger.Handler()).Methods(http.MethodGet)
 
 	log.Println("Server started")

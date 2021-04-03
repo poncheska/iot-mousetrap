@@ -131,7 +131,7 @@ paths:
       summary: SignUp
       tags:
       - auth
-  /trigger/{org}/{name}/{status}:
+  /trigger/{name}/{status}:
     get:
       consumes:
       - application/json
@@ -176,6 +176,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/http.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Trigger mousetrap
       tags:
       - mousetrap

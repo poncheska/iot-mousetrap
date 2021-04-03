@@ -64,6 +64,7 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 }
 
 // @Summary Trigger mousetrap
+// @Security ApiKeyAuth
 // @Tags mousetrap
 // @Description update mousetrap status
 // @ID trigger-mousetrap
@@ -76,15 +77,15 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse
 // @Failure default {object} errorResponse
-// @Router /trigger/{org}/{name}/{status} [get]
+// @Router /trigger/{name}/{status} [get]
 func (h Handler) Trigger(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 	tm := time.Now()
-	orgId, err:= strconv.ParseInt(vars["org"],10,64)
+	orgId, err:= strconv.ParseInt(r.Header.Get(orgIdHeader),10,64)
 	if err != nil {
-		log.Printf("mousetrap triggered: %v with invalid org_id", tm)
-		WriteJSONError(w, "invalid org_id", http.StatusBadRequest)
+		log.Printf("getmousetraps: error: %v", err)
+		WriteJSONError(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	var status bool

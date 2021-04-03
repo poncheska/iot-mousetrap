@@ -194,8 +194,13 @@ var doc = `{
                 }
             }
         },
-        "/trigger/{org}/{name}/{status}": {
+        "/trigger/{name}/{status}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "update mousetrap status",
                 "consumes": [
                     "application/json"
