@@ -58,7 +58,7 @@ func (ms *MousetrapStore) Create(mt models.Mousetrap) (int64, error) {
 		}
 	}
 	if org {
-		return 0, fmt.Errorf("invalid org_name")
+		return 0, fmt.Errorf("invalid org_id")
 	}
 	for _, v := range ms.repo.Mousetraps {
 		if mt.OrgId == v.OrgId && mt.Name == v.Name {

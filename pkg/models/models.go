@@ -14,9 +14,9 @@ type Mousetrap struct {
 }
 
 type Organisation struct {
-	Id       int64
-	Name     string
-	Password string
+	Id       int64  `db:"id"`
+	Name     string `db:"name"`
+	Password string `db:"password"`
 }
 
 type Credentials struct {

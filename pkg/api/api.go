@@ -2,8 +2,9 @@ package api
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
 	_ "github.com/poncheska/iot-mousetrap/docs"
-	"github.com/poncheska/iot-mousetrap/pkg/store/fake"
+	"github.com/poncheska/iot-mousetrap/pkg/store/sql"
 	hp "github.com/poncheska/iot-mousetrap/pkg/transport/http"
 	"github.com/poncheska/iot-mousetrap/pkg/utils"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -14,13 +15,21 @@ import (
 )
 
 func Start() {
+	dsn := os.Getenv("MYSQL_DSN")
+	if dsn == "" {
+		log.Fatalln("dsn is empty")
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
+	db, err := sqlx.Open("mysql", dsn)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	h := hp.Handler{
-		Store: fake.NewFakeStore(),
+		Store: sql.NewMySQLStore(db),
 		Logs:  utils.NewStringLogger(),
 	}
 
