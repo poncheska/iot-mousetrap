@@ -138,11 +138,6 @@ paths:
       description: update mousetrap status
       operationId: trigger-mousetrap
       parameters:
-      - description: Organisation name
-        in: path
-        name: org
-        required: true
-        type: string
       - description: Mousetrap name
         in: path
         name: name

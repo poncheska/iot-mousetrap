@@ -216,13 +216,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Organisation name",
-                        "name": "org",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
                         "description": "Mousetrap name",
                         "name": "name",
                         "in": "path",

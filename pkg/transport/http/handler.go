@@ -70,7 +70,6 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 // @ID trigger-mousetrap
 // @Accept  json
 // @Produce  json
-// @Param org path string true "Organisation name"
 // @Param name path string true "Mousetrap name"
 // @Param status path int true "Mousetrap status 0=off 1=on"
 // @Success 200 {integer} integer 1
