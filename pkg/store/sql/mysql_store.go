@@ -91,7 +91,7 @@ func (os *OrganisationStore) GetByCredentials(name, password string) (models.Org
 }
 
 func (os *OrganisationStore) Create(org models.Organisation) (int64, error) {
-	res, err := os.db.Exec("INSERT INTO Organisation (name, password) VALUES (?, ?)", org.Name, org.Id)
+	res, err := os.db.Exec("INSERT INTO Organisation (name, password) VALUES (?, ?)", org.Name, org.Password)
 	if err != nil {
 		return 0, err
 	}
