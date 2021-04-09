@@ -6,6 +6,7 @@ import (
 	"github.com/poncheska/iot-mousetrap/pkg/models"
 	"github.com/poncheska/iot-mousetrap/pkg/store"
 	"github.com/poncheska/iot-mousetrap/pkg/utils"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
@@ -28,6 +29,15 @@ func WriteJSONError(w http.ResponseWriter, errStr string, status int) {
 	json.NewEncoder(w).Encode(errorResponse{
 		Message: errStr,
 	})
+}
+
+func (h Handler) MainPage(w http.ResponseWriter, r *http.Request) {
+	bs, err := ioutil.ReadFile("./front/index.html")
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	w.Header().Set("Content-Type","text/html")
+	w.Write(bs)
 }
 
 // @Summary Get Mousetraps

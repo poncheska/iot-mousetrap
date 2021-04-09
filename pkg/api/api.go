@@ -37,6 +37,9 @@ func Start() {
 	log.SetOutput(io.MultiWriter(os.Stdout, h.Logs))
 
 	r := mux.NewRouter()
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/",
+		http.FileServer(http.Dir("./front/"))))
+	r.HandleFunc("/", h.MainPage).Methods(http.MethodGet)
 	r.HandleFunc("/log", h.GetLog).Methods(http.MethodGet)
 	r.HandleFunc("/log/clear", h.ClearLog).Methods(http.MethodGet)
 	r.HandleFunc("/org/sign-in", h.SignIn).Methods(http.MethodPost)
