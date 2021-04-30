@@ -1,5 +1,7 @@
 # IOT PROJECT "SMART MOUSETRAP"
 
+[MAIN PAGE](https://smart-mousetrap.herokuapp.com/) 
+
 [SWAGGER DOC](https://smart-mousetrap.herokuapp.com/swagger/index.html)
 
 <p align="center" markdown="1" style="max-width: 100%">

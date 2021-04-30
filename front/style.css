@@ -7,7 +7,6 @@ body {
     margin-right: 10px;
 }
 .header {
-    position: fixed;
     width: 95%;
     outline: 1px solid silver;
     padding: 15px ; 
@@ -106,4 +105,13 @@ a {
 }
 .sign-in-form {
     text-align: left;
+}
+.table {
+    width: 90%;
+    height: 90%;
+    padding: 20px;
+    margin-top: 10px;
+}
+.table, th, td {
+    border: 1px solid silver;
 }
