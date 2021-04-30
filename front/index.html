@@ -3,7 +3,7 @@
 <head>
     <base href="/static/">
     <meta charset="UTF-8">
-    <!-- <script src="script.js"></script> -->
+    <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
@@ -12,75 +12,40 @@
     <title>Mousetrap</title>
 </head>
 <body>
-    <div class="modal-overlay closed" id="modal-overlay"></div> <!--HERE-->
-    <div class="header"><div class="logo"><img class="logo_img" src="Vector.png">SmartMousetrap</div>
-</div>
-</header>
+    <div class="modal-overlay closed" id="modal-overlay"></div>
+    <div class="header" id="header"><div class="logo"><img class="logo_img" src="Vector.png">SmartMousetrap</div>
+    </div>
     <div class="modal closed" id="modal-sign-in" aria-hidden="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" role="dialog">
     <button class="button close-button" id="close-button-sign-in" title="Закрыть модальное окно">X</button>
     <div class="modal-guts" role="document">
-    <p> <form action="" class="sign-in-form">
+    <p> <form action="../pkg/transport/http/handler.go" target="_self" id="sign-in-form" class="sign-in-form">
         <p class="form-name">Sign In the system</p>
         <p>
         <p  class="form-inside">Email</p>
-        <input type="text" name="Email"><Br>
+        <input type="text" id="Email" name="Email"><Br>
         <p  class="form-inside">Password</p>
-        <input type="password" name="Password"><Br>
-        <p><input type="submit"class="button submit" value="Sign in"></p>
+        <input type="password" id="Password" name="Password"><Br>
+        <p><input type="submit" id="submit" class="button submit" value="Sign in"></p>
        </form></p>
 </div>
 </div>
 <div class="modal closed" id="modal-join" aria-hidden="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" role="dialog">
     <button class="button close-button" id="close-button-join" title="Закрыть модальное окно">X</button>
     <div class="modal-guts" role="document">
-    <p> <form action="" class="sign-in-form">
+    <p> <form action="../pkg/transport/http/handler.go" target="_self" id="join-form" class="join-form">
         <p class="form-name">Join the system</p>
         <p>
         <p  class="form-inside">Email</p>
-        <input type="text" name="Email"><Br>
+        <input type="text" id="Email" name="Email"><Br>
         <p  class="form-inside">Password</p>
-        <input type="password" name="Password"><Br>
-        <p><input type="submit"class="button submit" value="Join"></p>
+        <input type="password" id="Password" name="Password"><Br>
+        <p><input type="submit" id="submit" class="button submit" value="Join"></p>
        </form></p>
 </div>
 </div>
-<div class="open-buttons">
+<div class="open-buttons" id="open-button">
 <button id="open-button-sign-in" class="button open-button">Sign in</button>
 <button id="open-button-join" class="button open-button">Join</button>
 </div>
-<script>
-    function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
-    //   //  modal.classList.toggle("closed");
-    //     modalOverlay.classList.toggle("closed");
-        closeButton.addEventListener("click", function() {
-            modal.classList.toggle("closed");
-            modalOverlay.classList.toggle("closed");
-        });
-
-    openButton.addEventListener("click", function() {
-        modal.classList.toggle("closed"); // toggle "переключает" классы: если указанный класс существует у элемента, то он его удаляет.
-        modalOverlay.classList.toggle("closed"); //  А если нет, то создаёт.
-    });
-    }
-    var modalSignIn = document.querySelector("#modal-sign-in"),
-        modalJoin = document.querySelector("#modal-join"),
-        modalOverlay = document.querySelector("#modal-overlay"),
-        closeButtonSignIn = document.querySelector("#close-button-sign-in"),
-        closeButtonJoin = document.querySelector("#close-button-join"),
-        openButtonSignIn = document.querySelector("#open-button-sign-in");
-        openButtonJoin = document.querySelector("#open-button-join");
-    buttonDefinition(modalSignIn, modalOverlay, closeButtonSignIn, openButtonSignIn);
-    buttonDefinition(modalJoin, modalOverlay, closeButtonJoin, openButtonJoin);
-    // closeButton.addEventListener("click", function() {
-    //     modal.classList.toggle("closed");
-    //     modalOverlay.classList.toggle("closed");
-    // });
-
-    // openButton.addEventListener("click", function() {
-    //     modal.classList.toggle("closed"); // toggle "переключает" классы: если указанный класс существует у элемента, то он его удаляет.
-    //     modalOverlay.classList.toggle("closed"); //  А если нет, то создаёт.
-    // });
-
-</script>
 </body>
 </html>
