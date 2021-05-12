@@ -13,7 +13,6 @@ async function join() {
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(Object.fromEntries(formdata))
-
     });
     if (!response.ok){
         let errorMessage = document.createElement('div');
@@ -24,7 +23,7 @@ async function join() {
 }
 // document.forms.form
 async function signIn(form) {
-    await alert("hi");
+    // await alert("hi");
     if (form.id = "join-form"){
         join();
     }
@@ -84,3 +83,5 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	// document.querySelector("#table").
 // 	console.log(message);
 // 	  }
+document.forms.join.addEventListener("submit", signIn(document.forms.join));
+document.forms.signIn.addEventListener("submit", signIn(document.forms.signIn));
