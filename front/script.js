@@ -23,7 +23,7 @@ async function join() {
 }
 // document.forms.form
 async function signIn(form) {
-    await alert("hi");
+    // await alert("hi");
     if (form.id = "join-form"){
         join();
     }
