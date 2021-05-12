@@ -237,6 +237,8 @@ func (h Handler) GetLog(w http.ResponseWriter, r *http.Request) {
 // @Failure default {object} errorResponse
 // @Router /org/sign-in [post]
 func (h Handler) SignIn(w http.ResponseWriter, r *http.Request) {
+	j, _ := ioutil.ReadAll(r.Body)
+	log.Printf("sign-in: %v\n", string(j))
 	cred := &models.Credentials{}
 	if err := json.NewDecoder(r.Body).Decode(cred); err != nil {
 		log.Println("signin: request decode error: " + err.Error())
@@ -287,6 +289,8 @@ func (h Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 // @Failure default {object} errorResponse
 // @Router /org/sign-up [post]
 func (h Handler) SignUp(w http.ResponseWriter, r *http.Request) {
+	j, _ := ioutil.ReadAll(r.Body)
+	log.Printf("sign-up: %v\n", string(j))
 	cred := &models.Credentials{}
 	err := json.NewDecoder(r.Body).Decode(cred)
 	if err != nil {

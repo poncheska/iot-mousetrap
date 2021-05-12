@@ -1,4 +1,4 @@
-let socket = new WebSocket("wss://smart-mousetrap.herokuapp.com");
+let socket = new WebSocket("ws://smart-mousetrap.herokuapp.com/mousetraps/ws");
 let modalSignIn = document.querySelector("#modal-sign-in"),
 modalJoin = document.querySelector("#modal-join"),
 modalOverlay = document.querySelector("#modal-overlay"),
@@ -13,6 +13,7 @@ async function join() {
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(Object.fromEntries(formData))
+
     });
     if (!response.ok){
         let errorMessage = document.createElement('div');
