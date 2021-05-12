@@ -18,9 +18,8 @@
     <div class="modal closed" id="modal-sign-in" aria-hidden="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" role="dialog">
     <button class="button close-button" id="close-button-sign-in" title="Закрыть модальное окно">X</button>
     <div class="modal-guts" role="document">
-    <p> <form action="../pkg/transport/http/handler.go" target="_self" id="sign-in-form" class="sign-in-form">
-        <p class="form-name">Sign In the system</p>
-        <p>
+    <p> <form name="signIn" onsubmit="return signIn(document.forms.signIn);" id="sign-in-form" class="sign-in-form">
+        <p id="form-name" class="form-name">Sign In the system</p>
         <p  class="form-inside">Email</p>
         <input type="text" id="Email" name="Email"><Br>
         <p  class="form-inside">Password</p>
@@ -32,9 +31,8 @@
 <div class="modal closed" id="modal-join" aria-hidden="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" role="dialog">
     <button class="button close-button" id="close-button-join" title="Закрыть модальное окно">X</button>
     <div class="modal-guts" role="document">
-    <p> <form action="../pkg/transport/http/handler.go" target="_self" id="join-form" class="join-form">
+    <p> <form name="join" onsubmit="return signIn(document.forms.join);" id="join-form" class="join-form">
         <p class="form-name">Join the system</p>
-        <p>
         <p  class="form-inside">Email</p>
         <input type="text" id="Email" name="Email"><Br>
         <p  class="form-inside">Password</p>

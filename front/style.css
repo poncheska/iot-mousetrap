@@ -115,3 +115,7 @@ a {
 .table, th, td {
     border: 1px solid silver;
 }
+.error{
+    text-align: center;
+    color:#FF3300;
+}
