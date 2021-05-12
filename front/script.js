@@ -1,4 +1,4 @@
-let socket = new WebSocket("wss://smart-mousetrap.herokuapp.com/mousetraps/ws");
+let socket = new WebSocket("ws://smart-mousetrap.herokuapp.com/mousetraps/ws");
 let modalSignIn = document.querySelector("#modal-sign-in"),
 modalJoin = document.querySelector("#modal-join"),
 modalOverlay = document.querySelector("#modal-overlay"),
