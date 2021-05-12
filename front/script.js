@@ -12,7 +12,8 @@ async function join() {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({name: formdata.get("Email"), pass: formdata.get("Password")})
+    body: JSON.stringify(Object.fromEntries(formData))
+
     });
     if (!response.ok){
         let errorMessage = document.createElement('div');
@@ -23,6 +24,7 @@ async function join() {
 }
 // document.forms.form
 async function signIn(form) {
+    await alert("hi");
     if (form.id = "join-form"){
         join();
     }
@@ -31,7 +33,7 @@ async function signIn(form) {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({name: formdata.get("Email"), pass: formdata.get("Password")})
+    body: JSON.stringify(Object.fromEntries(formData))
     });
     if (response.ok){
         localStorage.setItem('token', JSON.parse(response).token);
