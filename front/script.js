@@ -1,4 +1,4 @@
-let socket = new WebSocket("ws://smart-mousetrap.herokuapp.com/mousetraps/ws");
+// let socket = new WebSocket("ws://smart-mousetrap.herokuapp.com/mousetraps/ws");
 let modalSignIn = document.querySelector("#modal-sign-in"),
 modalJoin = document.querySelector("#modal-join"),
 modalOverlay = document.querySelector("#modal-overlay"),
@@ -12,7 +12,7 @@ async function join() {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(Object.fromEntries(formData))
+    body: JSON.stringify(Object.fromEntries(formdata))
 
     });
     if (!response.ok){
@@ -33,7 +33,7 @@ async function signIn(form) {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(Object.fromEntries(formData))
+    body: JSON.stringify(Object.fromEntries(formdata))
     });
     if (response.ok){
         localStorage.setItem('token', JSON.parse(response).token);
@@ -79,8 +79,8 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
     }
     buttonDefinition(modalSignIn, modalOverlay, closeButtonSignIn, openButtonSignIn);
     buttonDefinition(modalJoin, modalOverlay, closeButtonJoin, openButtonJoin);
-socket.onmessage = function(event) {
-	let message = event.data; 
-	// document.querySelector("#table").
-	console.log(message);
-	  }
+// socket.onmessage = function(event) {
+// 	let message = event.data; 
+// 	// document.querySelector("#table").
+// 	console.log(message);
+// 	  }
