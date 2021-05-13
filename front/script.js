@@ -24,10 +24,10 @@ async function join() {
 // document.forms.form
 async function signIn(form) {
     if (form.id == "join-form"){
-        join();
+        await join();
     }
     let formdata = new FormData(form);
-    let response = fetch("/org/sign-in", {
+    let response = await fetch("/org/sign-in", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
