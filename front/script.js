@@ -20,11 +20,16 @@ async function join() {
         errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
         document.querySelector("#form-name").after(errorMessage);
     }
+    return response.ok
 }
 // document.forms.form
 async function signIn(form) {
+    ok = true
     if (form.id == "join-form"){
-        join();
+        ok = await join();
+    }
+    if !ok{
+        return;
     }
     let formdata = new FormData(form);
     let response = await fetch("/org/sign-in", {
