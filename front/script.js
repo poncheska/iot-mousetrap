@@ -86,5 +86,5 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	// document.querySelector("#table").
 // 	console.log(message);
 // 	  }
-document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
-document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
+document.forms.join.addEventListener("submit", function() {await signIn(document.forms.join)});
+document.forms.signIn.addEventListener("submit", function() {await signIn(document.forms.signIn)});
