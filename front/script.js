@@ -89,5 +89,15 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	// document.querySelector("#table").
 // 	console.log(message);
 // 	  }
-document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
-document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
+// document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
+// document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
+document.forms.join.addEventListener("submit", function(event) {
+	event.preventDefault();
+	signIn(document.forms.join);
+    event.currentTarget.submit();
+});
+document.forms.signIn.addEventListener("submit", function(event) {
+    event.preventDefault();
+	signIn(document.forms.signIn);
+    event.currentTarget.submit();
+});
