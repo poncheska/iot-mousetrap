@@ -6,27 +6,33 @@ closeButtonSignIn = document.querySelector("#close-button-sign-in"),
 closeButtonJoin = document.querySelector("#close-button-join"),
 openButtonSignIn = document.querySelector("#open-button-sign-in");
 openButtonJoin = document.querySelector("#open-button-join");
-async function join() {
-    let formdata = new FormData( document.forms.join);
+async function join(formdata) {
     let response = await fetch("/org/sign-up", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(Object.fromEntries(formdata))
     });
-    if (!response.ok){
-        let errorMessage = document.createElement('div');
-        errorMessage.className = "error";
-        errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
-        document.querySelector("#form-name").after(errorMessage);
-    }
+    // if (!response.ok){
+    //     let errorMessage = document.createElement('div');
+    //     errorMessage.className = "error";
+    //     errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
+    //     document.querySelector("#form-name").after(errorMessage);
+    // }
+    return response.ok
 }
 // document.forms.form
 async function signIn(form) {
-    if (form.id = "join-form"){
-        join();
-    }
     let formdata = new FormData(form);
+    if (form.id == "join-form"){
+         if (!join(formdata)){
+            let errorMessage = document.createElement('div');
+            errorMessage.className = "error";
+            errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
+            document.querySelector("#form-name").after(errorMessage);
+            return false;
+         };
+    }
     let response = await fetch("/org/sign-in", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
