@@ -25,7 +25,8 @@ async function join(formdata) {
 async function signIn(form) {
     let formdata = new FormData(form);
     if (form.id == "join-form"){
-         if (!join(formdata)){
+        let status = await join(formdata);
+         if (!status){
             let errorMessage = document.createElement('div');
             errorMessage.className = "error";
             errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
