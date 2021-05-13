@@ -6,7 +6,7 @@ closeButtonSignIn = document.querySelector("#close-button-sign-in"),
 closeButtonJoin = document.querySelector("#close-button-join"),
 openButtonSignIn = document.querySelector("#open-button-sign-in");
 openButtonJoin = document.querySelector("#open-button-join");
-async function join() {
+function join() {
     let formdata = new FormData( document.forms.join);
     let response = await fetch("/org/sign-up", {
         method: 'POST',
@@ -22,7 +22,7 @@ async function join() {
     }
 }
 // document.forms.form
-async function signIn(form) {
+function signIn(form) {
     if (form.id = "join-form"){
         await join();
     }
