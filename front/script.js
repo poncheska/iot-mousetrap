@@ -11,7 +11,7 @@ async function join(formdata) {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(Object.fromEntries(formdata))
+    body: JSON.stringify({"name":formdata.get("Email"), "pass":formdata.get("Password")})
     });
     // if (!response.ok){
     //     let errorMessage = document.createElement('div');
@@ -37,7 +37,7 @@ async function signIn(form) {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(Object.fromEntries(formdata))
+    body: JSON.stringify({"name":formdata.get("Email"), "pass":formdata.get("Password")})
     });
     if (response.ok){
         localStorage.setItem('token', JSON.parse(response).token);
@@ -72,8 +72,8 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 	closeButton.addEventListener("click", function() {
 		modal.classList.toggle("closed");
 		modalOverlay.classList.toggle("closed");
-        modal.querySelector("#Email").value = "";
-        modal.querySelector("#Password").value = "";
+        //modal.querySelector("#Email").value = "";
+        //modal.querySelector("#Password").value = "";
 	});
 
     openButton.addEventListener("click", function() {

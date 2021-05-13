@@ -240,7 +240,8 @@ func (h Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 	j, _ := ioutil.ReadAll(r.Body)
 	log.Printf("sign-in: %v\n", string(j))
 	cred := &models.Credentials{}
-	if err := json.NewDecoder(r.Body).Decode(cred); err != nil {
+	err := json.Unmarshal(j, cred)
+	if err != nil {
 		log.Println("signin: request decode error: " + err.Error())
 		WriteJSONError(w, err.Error(), http.StatusBadRequest)
 		return
@@ -292,7 +293,7 @@ func (h Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 	j, _ := ioutil.ReadAll(r.Body)
 	log.Printf("sign-up: %v\n", string(j))
 	cred := &models.Credentials{}
-	err := json.NewDecoder(r.Body).Decode(cred)
+	err := json.Unmarshal(j, cred)
 	if err != nil {
 		log.Println("signup: request decode error: " + err.Error())
 		WriteJSONError(w, err.Error(), http.StatusBadRequest)
