@@ -24,7 +24,7 @@ async function join() {
 // document.forms.form
 async function signIn(form) {
     if (form.id == "join-form"){
-        await join();
+        join();
     }
     let formdata = new FormData(form);
     let response = await fetch("/org/sign-in", {
