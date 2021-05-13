@@ -26,7 +26,8 @@ async function join() {
 async function signIn(form) {
     ok = true
     if (form.id == "join-form"){
-        join().then(v => {ok = v;});
+        p = new Promise(join());
+	ok = await p
     }
     if (!ok){
         return;
