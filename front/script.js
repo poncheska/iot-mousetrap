@@ -94,5 +94,5 @@ document.forms.join.addEventListener("submit", function(event) {
 });
 document.forms.signIn.addEventListener("submit", function(event) {
         event.preventDefault();
-	document.forms.signIn)
+	signIn(document.forms.signIn)
 });
