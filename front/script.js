@@ -23,8 +23,7 @@ async function join() {
 }
 // document.forms.form
 async function signIn(form) {
-    // await alert("hi");
-    if (form.id == "join-form"){
+    if (form.id = "join-form"){
         join();
     }
     let formdata = new FormData(form);
@@ -83,5 +82,5 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	// document.querySelector("#table").
 // 	console.log(message);
 // 	  }
-document.forms.join.addEventListener("submit", signIn(document.forms.join));
-document.forms.signIn.addEventListener("submit", signIn(document.forms.signIn));
+document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
+document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
