@@ -89,10 +89,10 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	console.log(message);
 // 	  }
 document.forms.join.addEventListener("submit", function(event) {
-	event.preventDefault()
+	event.preventDefault();
 	signIn(document.forms.join)
 });
 document.forms.signIn.addEventListener("submit", function(event) {
-        event.preventDefault()
+        event.preventDefault();
 	document.forms.signIn)
 });
