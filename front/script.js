@@ -25,7 +25,8 @@ async function join() {
 // document.forms.form
 async function signIn(form) {
     if (form.id == "join-form"){
-        let ok = await join();	    
+        let ok = await join();	  
+	console.log(ok);
         if (!ok){
            return;
         }
