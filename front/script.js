@@ -24,12 +24,11 @@ async function join() {
 }
 // document.forms.form
 async function signIn(form) {
-    ok = true
     if (form.id == "join-form"){
-        ok = await join();
-    }
-    if (!ok){
-        return;
+        let ok = await join();	    
+        if (!ok){
+           return;
+        }
     }
     let formdata = new FormData(form);
     let response = await fetch("/org/sign-in", {
