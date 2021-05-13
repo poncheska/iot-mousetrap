@@ -28,7 +28,7 @@ async function signIn(form) {
     if (form.id == "join-form"){
         ok = await join();
     }
-    if !ok{
+    if (!ok){
         return;
     }
     let formdata = new FormData(form);
