@@ -67,8 +67,8 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 	closeButton.addEventListener("click", function() {
 		modal.classList.toggle("closed");
 		modalOverlay.classList.toggle("closed");
-        modal.querySelector("#Email").value = "";
-        modal.querySelector("#Password").value = "";
+        //modal.querySelector("#Email").value = "";
+        //modal.querySelector("#Password").value = "";
 	});
 
     openButton.addEventListener("click", function() {
