@@ -8,7 +8,7 @@ openButtonSignIn = document.querySelector("#open-button-sign-in");
 openButtonJoin = document.querySelector("#open-button-join");
 function join() {
     let formdata = new FormData( document.forms.join);
-    let response = await fetch("/org/sign-up", {
+    let response = fetch("/org/sign-up", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
@@ -24,10 +24,10 @@ function join() {
 // document.forms.form
 function signIn(form) {
     if (form.id = "join-form"){
-        await join();
+        join();
     }
     let formdata = new FormData(form);
-    let response = await fetch("/org/sign-in", {
+    let response = fetch("/org/sign-in", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
