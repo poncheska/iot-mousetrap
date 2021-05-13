@@ -22,9 +22,9 @@ function join() {
     }
 }
 // document.forms.form
-function signIn(form) {
+async function signIn(form) {
     if (form.id = "join-form"){
-        join();
+        await join();
     }
     let formdata = new FormData(form);
     let response = fetch("/org/sign-in", {
