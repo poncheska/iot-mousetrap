@@ -20,14 +20,13 @@ async function join() {
         errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
         document.querySelector("#form-name").after(errorMessage);
     }
-    return response.ok
+    return Promise.resolve(response.ok)
 }
 // document.forms.form
 async function signIn(form) {
     ok = true
     if (form.id == "join-form"){
-        p = new Promise(join());
-	ok = await p
+        ok = await join();
     }
     if (!ok){
         return;
