@@ -29,6 +29,7 @@ async function signIn(form) {
         // let status = join(formdata);
         if (!status){
             if (!document.querySelector("#join-error")){
+		    alert(JSON.parse(joinResponse).message);
                 let errorMessage = document.createElement('div');
                 errorMessage.id = "join-error";
                 errorMessage.className = "error";
