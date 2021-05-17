@@ -19,12 +19,13 @@ async function join(formdata) {
     //     errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
     //     document.querySelector("#form-name").after(errorMessage);
     // }
-    return response.ok
+    return response;
 }
 async function signIn(form) {
     let formdata = new FormData(form);
     if (form.id == "join-form"){
-        let status = await join(formdata);
+        let joinResponse = await join(formdata);
+        let status = joinResponse.ok;
         // let status = join(formdata);
         if (!status){
             if (!document.querySelector("#join-error")){
@@ -32,7 +33,7 @@ async function signIn(form) {
                 errorMessage.id = "join-error";
                 errorMessage.className = "error";
                 // errorMessage.innerHTML = "<strong>fdghjk</strong>";
-                errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`;
+                errorMessage.innerHTML = `<strong>${JSON.parse(joinResponse).message}</strong>`;
                 document.querySelector("#form-name-join").after(errorMessage);
             }
             return false;
