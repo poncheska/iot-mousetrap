@@ -64,7 +64,7 @@ async function signIn(form) {
     else{
         let errorMessage = document.createElement('div');
         errorMessage.className = "error";
-        errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
+        errorMessage.innerHTML = "<strong>${JSON.parse(response).message}</strong>";
         document.querySelector("#form-name").after(errorMessage);
     }
     return false
