@@ -27,7 +27,7 @@ async function signIn(form) {
     if (form.id == "join-form"){
         let status = await join(formdata);
          if (!status){
-	    alert('lol')
+	    alert('lol');
             let errorMessage = document.createElement('div');
             errorMessage.className = "error";
             errorMessage.innerHTML = "<strong>${JSON.parse(response).message}</strong>";
