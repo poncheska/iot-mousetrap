@@ -38,13 +38,13 @@ async function signIn(form) {
             return false;
          };
     }
-    let response =  fetch("/org/sign-in", {
+    let response = await fetch("/org/sign-in", {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify({"name":formdata.get("Email"), "pass":formdata.get("Password")})
     });
-    if (!response.ok){
+    if (response.ok){
         if (form.id == "join-form"){
             modalJoin.classList.toggle("closed");}
         else{
