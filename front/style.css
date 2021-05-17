@@ -34,6 +34,7 @@ a {
     box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
   }
 .modal-guts {
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +44,6 @@ a {
     width: 100%;
     height: 100%;
     padding: 0 50px 20px 20px;
-    overflow: auto;
 }
 .modal-overlay {
     z-index: 50;

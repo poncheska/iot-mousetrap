@@ -21,17 +21,20 @@ async function join(formdata) {
     // }
     return response.ok
 }
-// document.forms.form
 async function signIn(form) {
     let formdata = new FormData(form);
     if (form.id == "join-form"){
         let status = await join(formdata);
-         if (!status){
-	    alert('lol');
-            let errorMessage = document.createElement('div');
-            errorMessage.className = "error";
-            errorMessage.innerHTML = "<strong>${JSON.parse(response).message}</strong>";
-            document.querySelector("#form-name").after(errorMessage);
+        // let status = join(formdata);
+        if (!status){
+            if (!document.querySelector("#join-error")){
+                let errorMessage = document.createElement('div');
+                errorMessage.id = "join-error";
+                errorMessage.className = "error";
+                // errorMessage.innerHTML = "<strong>fdghjk</strong>";
+                errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`;
+                document.querySelector("#form-name-join").after(errorMessage);
+            }
             return false;
          };
     }
@@ -42,12 +45,16 @@ async function signIn(form) {
     body: JSON.stringify({"name":formdata.get("Email"), "pass":formdata.get("Password")})
     });
     if (response.ok){
+        if (form.id == "join-form"){
+            modalJoin.classList.toggle("closed");}
+        else{
+            modalSignIn.classList.toggle("closed");
+        }
+        modalOverlay.classList.toggle("closed"); 
+        // let doc =  window.top.document;
         localStorage.setItem('token', JSON.parse(response).token);
-        modalSignIn.classList.toggle("closed");
-        modalOverlay.classList.toggle("closed");
-        let doc =  window.top.document;
-        doc.querySelector("#open-button").hidden = true;
-        let table = doc.createElement('table');
+        document.querySelector("#open-button").hidden = true;
+        let table = document.createElement('table');
         table.setAttribute("class", "table");
         table.setAttribute("id", "table");
         table.insertAdjacentHTML("beforeend",`
@@ -60,13 +67,15 @@ async function signIn(form) {
                 <td>${Date.now()}</td>
             </tr>`)
         }
-        doc.querySelector("#header").after(table)
+        document.querySelector("#header").after(table);
     }
     else{
-        let errorMessage = document.createElement('div');
-        errorMessage.className = "error";
-        errorMessage.innerHTML = "<strong>${JSON.parse(response).message}</strong>";
-        document.querySelector("#form-name").after(errorMessage);
+        if (!document.querySelector("#sign-in-error")){
+            let errorMessage = document.createElement('div');
+            errorMessage.className = "error";
+            errorMessage.id = "sign-in-error";
+            errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
+            document.querySelector("#form-name-sign-in").after(errorMessage);}
     }
     return false
 }
