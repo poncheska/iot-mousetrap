@@ -35,7 +35,7 @@ async function signIn(form) {
                 errorMessage.className = "error";
                 // errorMessage.innerHTML = "<strong>fdghjk</strong>";
                 let jsonResponse = await joinResponse.json();
-                errorMessage.innerHTML = `<strong>${JSON.parse(jsonResponse).message}</strong>`;
+                errorMessage.innerHTML = `<strong>${jsonResponse.message}</strong>`;
                 document.querySelector("#form-name-join").after(errorMessage);
             }
             return false;
