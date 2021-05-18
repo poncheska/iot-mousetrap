@@ -79,8 +79,8 @@ async function signIn(form) {
             table.insertAdjacentHTML("beforeend",`
             <tr>
                 <td>${data[i].name}</td>
-                <td>${gata[i].status}</td>
-                <td>${gata[i].last_trigger}</td>
+                <td>${data[i].status}</td>
+                <td>${data[i].last_trigger}</td>
             </tr>`)
         }
         document.querySelector("#header").after(table);
