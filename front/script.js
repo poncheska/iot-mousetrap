@@ -6,23 +6,6 @@ closeButtonSignIn = document.querySelector("#close-button-sign-in"),
 closeButtonJoin = document.querySelector("#close-button-join"),
 openButtonSignIn = document.querySelector("#open-button-sign-in");
 openButtonJoin = document.querySelector("#open-button-join");
-async function update(){
-    let newResponse = await fetch('/mousetraps',{
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-    });
-    let newData = await newResponse.json();
-   
-    let existedTable = document.querySelector("#table");
-    for (let i = 0; i < existedTable.querySelectorAll('tr').length; i++){
-        let DataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
-        for (let j=0; j < existedTable.querySelectorAll('tr')[i].querySelectorAll('td').length; j++){
-            existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = DataArray[j];
-        }
-        
-    }
-}
 async function join(formdata) {
     let response = await fetch("/org/sign-up", {
         method: 'POST',
@@ -134,6 +117,23 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	  }
 // document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
 // document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
+async function update(){
+    let newResponse = await fetch('/mousetraps',{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    });
+    let newData = await newResponse.json();
+   
+    let existedTable = document.querySelector("#table");
+    for (let i = 0; i < existedTable.querySelectorAll('tr').length; i++){
+        let DataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
+        for (let j=0; j < existedTable.querySelectorAll('tr')[i].querySelectorAll('td').length; j++){
+            existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = DataArray[j];
+        }
+        
+    }
+}
 document.forms.join.addEventListener("submit", function(event) {
 	event.preventDefault();
 	signIn(document.forms.join);
