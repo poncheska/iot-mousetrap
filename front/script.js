@@ -74,7 +74,7 @@ async function signIn(form) {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
         });
-        let data = await response.json();
+        let data = await responseMousetraps.json();
         for (let i = 0; i < data.length; i++){
             table.insertAdjacentHTML("beforeend",`
             <tr>
