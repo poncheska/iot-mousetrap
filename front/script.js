@@ -71,8 +71,8 @@ async function signIn(form) {
         <th>status</th>
         <th>last action</th>`);
         let responseMousetraps = await fetch('/mousetraps', {
-            headers: {'Content-Type': 'application/json;charset=utf-8',
-            'Authorizatioin': `Bearer ${localStorage.getItem('token')}`
+            headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
         });
         let data = await response.json();
@@ -120,8 +120,8 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
 function update(){
     let newResponse = await fetch('/mousetraps',{
-        headers: {'Content-Type': 'application/json;charset=utf-8',
-            'Authorizatioin': `Bearer ${localStorage.getItem('token')}`
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     });
     let newData = await newResponse.json();
@@ -145,4 +145,4 @@ document.forms.signIn.addEventListener("submit", function(event) {
 	signIn(document.forms.signIn);
     event.currentTarget.submit();
 });
-document.querySelector("#update-button").addEventListener("click", update);
+document.querySelector("#update-button").addEventListener("click", update)
