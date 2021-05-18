@@ -117,7 +117,7 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
 // 	  }
 // document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
 // document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
-function update(){
+async function update(){
     let newResponse = await fetch('/mousetraps',{
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
