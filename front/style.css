@@ -96,6 +96,9 @@ a {
     border-radius: 10px;
     border: 0;
     font-family: 'Quicksand', sans-serif;
+    transition-property: background-color;
+    transition-duration: .3s;
+    transition-timing-function: ease-in;
 }
 .submit {
     width: 100%;
@@ -118,4 +121,8 @@ a {
 .error{
     text-align: center;
     color:#FF3300;
+}
+.update-button, .log-out-button{
+    position: relative;
+    left: 50%;
 }

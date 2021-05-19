@@ -1,4 +1,3 @@
-// let socket = new WebSocket("ws://smart-mousetrap.herokuapp.com/mousetraps/ws");
 let modalSignIn = document.querySelector("#modal-sign-in"),
 modalJoin = document.querySelector("#modal-join"),
 modalOverlay = document.querySelector("#modal-overlay"),
@@ -13,12 +12,6 @@ async function join(formdata) {
     },
     body: JSON.stringify({"name":formdata.get("Email"), "pass":formdata.get("Password")})
     });
-    // if (!response.ok){
-    //     let errorMessage = document.createElement('div');
-    //     errorMessage.className = "error";
-    //     errorMessage.innerHTML = `<strong>${JSON.parse(response).message}</strong>`
-    //     document.querySelector("#form-name").after(errorMessage);
-    // }
     return response;
 }
 async function signIn(form) {
@@ -26,13 +19,11 @@ async function signIn(form) {
     if (form.id == "join-form"){
         let joinResponse = await join(formdata);
         let status = joinResponse.ok;
-        // let status = join(formdata);
         if (!status){
             if (!document.querySelector("#join-error")){
                 let errorMessage = document.createElement('div');
                 errorMessage.id = "join-error";
                 errorMessage.className = "error";
-                // errorMessage.innerHTML = "<strong>fdghjk</strong>";
                 let json = await joinResponse.json();
                 errorMessage.innerHTML = `<strong>${json.message}</strong>`;
                 document.querySelector("#form-name-join").after(errorMessage);
@@ -56,21 +47,26 @@ async function signIn(form) {
         }
         modalOverlay.classList.toggle("closed"); 
         // let doc =  window.top.document;
-        document.querySelector("#open-button").hidden = true;
-        let updateButton = document.createElement('button');
-        updateButton.id="update-button";
-        updateButton.className = "button update-button";
-        updateButton.textContent = "update";
-        document.querySelector("#header").after(updateButton);
-        let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
-        localStorage.setItem('updateButton', jsonUpdateButton);
-        let table = document.createElement('table');
-        table.setAttribute("class", "table");
-        table.setAttribute("id", "table");
-        table.insertAdjacentHTML("beforeend",`
-        <th>name</th>
-        <th>status</th>
-        <th>last action</th>`);
+        // document.querySelector("#open-button").hidden = true;
+        // let updateButton = document.createElement('button');
+        // updateButton.id="update-button";
+        // updateButton.className = "button update-button";
+        // updateButton.textContent = "update";
+        // document.querySelector("#header").after(updateButton);
+        // let logOutButton = document.createElement('button');
+        // logOutButton.id="log-out-button";
+        // logOutButton.className = "button log-out-button";
+        // logOutButton.textContent = "log out";
+        // document.querySelector("#update-button").after(logOutButton);
+        // // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
+        // // localStorage.setItem('updateButton', jsonUpdateButton);
+        // let table = document.createElement('table');
+        // table.setAttribute("class", "table");
+        // table.setAttribute("id", "table");
+        // table.insertAdjacentHTML("beforeend",`
+        // <th>name</th>
+        // <th>status</th>
+        // <th>last action</th>`);
         let responseMousetraps = await fetch('/mousetraps', {
             headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -78,15 +74,15 @@ async function signIn(form) {
         });
         let data = await responseMousetraps.json();
         localStorage.setItem('data', JSON.stringify(data));
-        for (let i = 0; i < data.length; i++){
-            table.insertAdjacentHTML("beforeend",`
-            <tr>
-                <td>${data[i].name}</td>
-                <td>${data[i].status}</td>
-                <td>${data[i].last_trigger}</td>
-            </tr>`)
-        }
-        document.querySelector("#header").after(table);
+        // for (let i = 0; i < data.length; i++){
+        //     table.insertAdjacentHTML("beforeend",`
+        //     <tr>
+        //         <td>${data[i].name}</td>
+        //         <td>${data[i].status}</td>
+        //         <td>${data[i].last_trigger}</td>
+        //     </tr>`)
+        // }
+        // document.querySelector("#header").after(table);
     }
     else{
         if (!document.querySelector("#sign-in-error")){
@@ -113,13 +109,6 @@ function buttonDefinition(modal, modalOverlay, closeButton, openButton) {
     }
     buttonDefinition(modalSignIn, modalOverlay, closeButtonSignIn, openButtonSignIn);
     buttonDefinition(modalJoin, modalOverlay, closeButtonJoin, openButtonJoin);
-// socket.onmessage = function(event) {
-// 	let message = event.data; 
-// 	// document.querySelector("#table").
-// 	console.log(message);
-// 	  }
-// document.forms.join.addEventListener("submit", function() {signIn(document.forms.join)});
-// document.forms.signIn.addEventListener("submit", function() {signIn(document.forms.signIn)});
 async function update(){
     let newResponse = await fetch('/mousetraps',{
         headers: {
@@ -174,5 +163,10 @@ document.forms.signIn.addEventListener("submit", function(event) {
 	signIn(document.forms.signIn);
     event.currentTarget.submit();
 });
-savingChanges();
+savingChanges()
 document.querySelector("#update-button").addEventListener("click", update);
+document.querySelector("#update-button").addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
+document.querySelector("#update-button").addEventListener("mouseup", function(event) {this.style.background = '#FF330'});
+document.querySelector(".button").addEventListener("mouseover", function(event) {this.style.background = '#a52100'});
+document.querySelector(".button").addEventListener("mouseout", function(event) {this.style.background = '#FF330'});
+document.querySelector("#log-out-button").addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
