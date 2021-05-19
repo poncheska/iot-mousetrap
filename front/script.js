@@ -131,8 +131,8 @@ async function update(){
     let existedTable = document.querySelector("#table");
     for (let i = 0; i < existedTable.querySelectorAll('tr').length - 1; i++){
         let dataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
-        for (let j=0; j < existedTable.querySelectorAll('tr')[i].querySelectorAll('td').length; j++){
-            existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = dataArray[j];
+        for (let j=0; j < existedTable.querySelectorAll('tr')[i+1].querySelectorAll('td').length; j++){
+            existedTable.querySelectorAll('tr')[i+1].querySelectorAll('td')[j].textContent = dataArray[j];
         }
         
     }
