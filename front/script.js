@@ -46,27 +46,26 @@ async function signIn(form) {
             modalSignIn.classList.toggle("closed");
         }
         modalOverlay.classList.toggle("closed"); 
-        // let doc =  window.top.document;
-        // document.querySelector("#open-button").hidden = true;
-        // let updateButton = document.createElement('button');
-        // updateButton.id="update-button";
-        // updateButton.className = "button update-button";
-        // updateButton.textContent = "update";
-        // document.querySelector("#header").after(updateButton);
-        // let logOutButton = document.createElement('button');
-        // logOutButton.id="log-out-button";
-        // logOutButton.className = "button log-out-button";
-        // logOutButton.textContent = "log out";
-        // document.querySelector("#update-button").after(logOutButton);
-        // // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
-        // // localStorage.setItem('updateButton', jsonUpdateButton);
-        // let table = document.createElement('table');
-        // table.setAttribute("class", "table");
-        // table.setAttribute("id", "table");
-        // table.insertAdjacentHTML("beforeend",`
-        // <th>name</th>
-        // <th>status</th>
-        // <th>last action</th>`);
+        document.querySelector("#open-button").hidden = true;
+        let updateButton = document.createElement('button');
+        updateButton.id="update-button";
+        updateButton.className = "button update-button";
+        updateButton.textContent = "update";
+        document.querySelector("#user-buttons").append(updateButton);
+        let logOutButton = document.createElement('button');
+        logOutButton.id="log-out-button";
+        logOutButton.className = "button log-out-button";
+        logOutButton.textContent = "log out";
+        document.querySelector("#update-button").after(logOutButton);
+        // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
+        // localStorage.setItem('updateButton', jsonUpdateButton);
+        let table = document.createElement('table');
+        table.setAttribute("class", "table");
+        table.setAttribute("id", "table");
+        table.insertAdjacentHTML("beforeend",`
+        <th>name</th>
+        <th>status</th>
+        <th>last action</th>`);
         let responseMousetraps = await fetch('/mousetraps', {
             headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -74,15 +73,15 @@ async function signIn(form) {
         });
         let data = await responseMousetraps.json();
         localStorage.setItem('data', JSON.stringify(data));
-        // for (let i = 0; i < data.length; i++){
-        //     table.insertAdjacentHTML("beforeend",`
-        //     <tr>
-        //         <td>${data[i].name}</td>
-        //         <td>${data[i].status}</td>
-        //         <td>${data[i].last_trigger}</td>
-        //     </tr>`)
-        // }
-        // document.querySelector("#header").after(table);
+        for (let i = 0; i < data.length; i++){
+            table.insertAdjacentHTML("beforeend",`
+            <tr>
+                <td>${data[i].name}</td>
+                <td>${data[i].status}</td>
+                <td>${data[i].last_trigger}</td>
+            </tr>`)
+        }
+        document.querySelector("#header").after(table);
     }
     else{
         if (!document.querySelector("#sign-in-error")){
@@ -133,7 +132,7 @@ function savingChanges(){
         updateButton.id="update-button";
         updateButton.className = "button update-button";
         updateButton.textContent = "update";
-        document.querySelector("#header").after(updateButton);
+        document.querySelector("#user-buttons").append(updateButton);
         let table = document.createElement('table');
         table.setAttribute("class", "table");
         table.setAttribute("id", "table");
