@@ -33,6 +33,7 @@ func (dmt DBMousetrap) Parse() models.Mousetrap {
 		LastTrigger: time.Unix(0, dmt.LastTrigger),
 	}
 }
+
 func NewMySQLStore(db *sqlx.DB) store.Store {
 	return store.Store{
 		Mousetrap:    &MousetrapStore{db: db},
