@@ -151,6 +151,11 @@ function savingChanges(){
             </tr>`)
         }
         document.querySelector("#header").after(table);
+        let logOutButton = document.createElement('button');
+        logOutButton.id="log-out-button";
+        logOutButton.className = "button log-out-button";
+        logOutButton.textContent = "log out";
+        document.querySelector("#update-button").after(logOutButton);
     }
 }
 document.forms.join.addEventListener("submit", function(event) {
@@ -166,7 +171,7 @@ document.forms.signIn.addEventListener("submit", function(event) {
 savingChanges()
 document.querySelector("#update-button").addEventListener("click", update);
 document.querySelector("#update-button").addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
-document.querySelector("#update-button").addEventListener("mouseup", function(event) {this.style.background = '#FF330'});
+document.querySelector("#update-button").addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
 document.querySelector(".button").addEventListener("mouseover", function(event) {this.style.background = '#a52100'});
-document.querySelector(".button").addEventListener("mouseout", function(event) {this.style.background = '#FF330'});
+document.querySelector(".button").addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});
 document.querySelector("#log-out-button").addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
