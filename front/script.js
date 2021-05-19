@@ -151,6 +151,11 @@ function savingChanges(){
             </tr>`)
         }
         document.querySelector("#header").after(table);
+        let logOutButton = document.createElement('button');
+        logOutButton.id="log-out-button";
+        logOutButton.className = "button log-out-button";
+        logOutButton.textContent = "log out";
+        document.querySelector("#update-button").after(logOutButton);
     }
 }
 document.forms.join.addEventListener("submit", function(event) {
