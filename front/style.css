@@ -116,7 +116,7 @@ a {
     height: 90%;
     padding: 20px;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 50px;
 }
 .table, th, td {
     border: 1px solid silver;
@@ -125,15 +125,10 @@ a {
     text-align: center;
     color:#ff3300;
 }
-.user-buttons{
-    display: block;
-}
 .update-button, .log-out-button{
-    margin-left: 0;
+    margin: 10px 20px 10px 0;
     position: relative;
     left: 47%;
-    font-size: 15px;
-    padding: 2px;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    font-size: 18px;
+    padding: 5px;
 }
