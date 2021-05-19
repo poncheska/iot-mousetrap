@@ -41,7 +41,7 @@ void loop() {
     LoRa.print(mousetrap_name+"/");
     LoRa.print(sts);
     LoRa.endPacket();
+    lastButtonState = reading;
   }
-  lastButtonState = reading;
   delay(1000);
 }

@@ -72,7 +72,30 @@ func (h Handler) GetMousetraps(w http.ResponseWriter, r *http.Request) {
 		WriteJSONError(w, "no such mousetrap", http.StatusBadRequest)
 		return
 	}
-	json.NewEncoder(w).Encode(mt)
+	w.Write(MTResponse(mt))
+	//json.NewEncoder(w).Encode(mt)
+}
+
+func MTResponse(mts []models.Mousetrap) []byte {
+	type MousetrapResp struct {
+		Id          int64  `json:"id"`
+		Name        string `json:"name"`
+		OrgId       int64  `json:"org_id"`
+		Status      bool   `json:"status"`
+		LastTrigger string `json:"last_trigger"`
+	}
+	res := []MousetrapResp{}
+	for _, mt := range mts {
+		res = append(res, MousetrapResp{
+			Id:          mt.Id,
+			Name:        mt.Name,
+			OrgId:       mt.OrgId,
+			Status:      mt.Status,
+			LastTrigger: mt.LastTrigger.String(),
+		})
+	}
+	bs, _ := json.Marshal(res)
+	return bs
 }
 
 func (h Handler) GetMousetrapsWS(w http.ResponseWriter, r *http.Request) {
