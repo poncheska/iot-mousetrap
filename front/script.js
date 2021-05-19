@@ -174,5 +174,5 @@ document.forms.signIn.addEventListener("submit", function(event) {
 	signIn(document.forms.signIn);
     event.currentTarget.submit();
 });
+savingChanges();
 document.querySelector("#update-button").addEventListener("click", update);
-savingChanges()
