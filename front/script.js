@@ -129,7 +129,7 @@ async function update(){
     let newData = await newResponse.json();
     localStorage.setItem('data', JSON.stringify(newData));
     let existedTable = document.querySelector("#table");
-    for (let i = 0; i < existedTable.querySelectorAll('tr').length; i++){
+    for (let i = 0; i < existedTable.querySelectorAll('tr').length - 1; i++){
         let dataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
         for (let j=0; j < existedTable.querySelectorAll('tr')[i].querySelectorAll('td').length; j++){
             existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = dataArray[j];
