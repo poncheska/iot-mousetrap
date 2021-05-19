@@ -24,14 +24,6 @@ type DBMousetrap struct {
 	LastTrigger int64  `db:"last_trig"`
 }
 
-type MousetrapResp struct {
-	Id          int64  `db:"id"`
-	Name        string `db:"name"`
-	OrgId       int64  `db:"org_id"`
-	Status      bool   `db:"status"`
-	LastTrigger string  `db:"last_trig"`
-}
-
 func (dmt DBMousetrap) Parse() models.Mousetrap {
 	return models.Mousetrap{
 		Id:          dmt.Id,
@@ -42,16 +34,6 @@ func (dmt DBMousetrap) Parse() models.Mousetrap {
 	}
 }
 
-func (dmt DBMousetrap) ParseResp() MousetrapResp {
-	return MousetrapResp{
-		Id:          dmt.Id,
-		Name:        dmt.Name,
-		OrgId:       dmt.OrgId,
-		Status:      dmt.Status,
-		LastTrigger: time.Unix(0, dmt.LastTrigger).String(),
-	}
-}
-
 func NewMySQLStore(db *sqlx.DB) store.Store {
 	return store.Store{
 		Mousetrap:    &MousetrapStore{db: db},
@@ -59,8 +41,8 @@ func NewMySQLStore(db *sqlx.DB) store.Store {
 	}
 }
 
-func (ms *MousetrapStore) GetAll(OrgId int64) ([]MousetrapResp, error) {
-	res := []MousetrapResp{}
+func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
+	res := []models.Mousetrap{}
 	dmt := DBMousetrap{}
 	rows, err := ms.db.Queryx("SELECT * FROM Mousetrap WHERE org_id = ?", OrgId)
 	if err != nil {
@@ -71,7 +53,7 @@ func (ms *MousetrapStore) GetAll(OrgId int64) ([]MousetrapResp, error) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		res = append(res, dmt.ParseResp())
+		res = append(res, dmt.Parse())
 	}
 	return res, nil
 }
