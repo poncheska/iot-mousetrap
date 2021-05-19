@@ -48,7 +48,7 @@ func (dmt DBMousetrap) ParseResp() MousetrapResp {
 		Name:        dmt.Name,
 		OrgId:       dmt.OrgId,
 		Status:      dmt.Status,
-		LastTrigger: time.Unix(0, dmt.LastTrigger).String(),
+		LastTrigger: time.Unix(0, dmt.LastTrigger).Format(time.UnixDate),
 	}
 }
 
