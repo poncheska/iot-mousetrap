@@ -48,7 +48,7 @@ func (dmt DBMousetrap) ParseResp() MousetrapResp {
 		Name:        dmt.Name,
 		OrgId:       dmt.OrgId,
 		Status:      dmt.Status,
-		LastTrigger: time.Unix(0, dmt.LastTrigger).Format(time.UnixDate),
+		LastTrigger: time.Unix(0, dmt.LastTrigger).String(),
 	}
 }
 
@@ -59,8 +59,8 @@ func NewMySQLStore(db *sqlx.DB) store.Store {
 	}
 }
 
-func (ms *MousetrapStore) GetAll(OrgId int64) ([]models.Mousetrap, error) {
-	res := []models.Mousetrap{}
+func (ms *MousetrapStore) GetAll(OrgId int64) ([]MousetrapResp, error) {
+	res := []MousetrapResp{}
 	dmt := DBMousetrap{}
 	rows, err := ms.db.Queryx("SELECT * FROM Mousetrap WHERE org_id = ?", OrgId)
 	if err != nil {
