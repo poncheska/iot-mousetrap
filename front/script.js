@@ -59,9 +59,11 @@ async function signIn(form) {
         document.querySelector("#open-button").hidden = true;
         let updateButton = document.createElement('button');
         updateButton.id="update-button";
-        updateButton.className = "button update-button"
-        document.querySelector("#header").after(updateButton);
+        updateButton.className = "button update-button";
         updateButton.textContent = "update";
+        document.querySelector("#header").after(updateButton);
+        let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
+        localStorage.setItem('updateButton', jsonUpdateButton);
         let table = document.createElement('table');
         table.setAttribute("class", "table");
         table.setAttribute("id", "table");
@@ -75,6 +77,7 @@ async function signIn(form) {
         }
         });
         let data = await responseMousetraps.json();
+        localStorage.setItem('data', JSON.stringify(data));
         for (let i = 0; i < data.length; i++){
             table.insertAdjacentHTML("beforeend",`
             <tr>
@@ -124,14 +127,41 @@ async function update(){
         }
     });
     let newData = await newResponse.json();
-   
+    localStorage.setItem('data', JSON.stringify(newData));
     let existedTable = document.querySelector("#table");
     for (let i = 0; i < existedTable.querySelectorAll('tr').length; i++){
-        let DataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
+        let dataArray = [newData[i].name, newData[i].status, newData[i].last_trigger];
         for (let j=0; j < existedTable.querySelectorAll('tr')[i].querySelectorAll('td').length; j++){
-            existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = DataArray[j];
+            existedTable.querySelectorAll('tr')[i].querySelectorAll('td')[j].textContent = dataArray[j];
         }
         
+    }
+}
+function savingChanges(){
+    if (localStorage.length){
+        document.querySelector("#open-button").hidden = true;
+        let updateButton = document.createElement('button');
+        updateButton.id="update-button";
+        updateButton.className = "button update-button";
+        updateButton.textContent = "update";
+        document.querySelector("#header").after(updateButton);
+        let table = document.createElement('table');
+        table.setAttribute("class", "table");
+        table.setAttribute("id", "table");
+        table.insertAdjacentHTML("beforeend",`
+        <th>name</th>
+        <th>status</th>
+        <th>last action</th>`);
+        let data = JSON.parse(localStorage.getItem('data'));
+        for (let i = 0; i < data.length; i++){
+            table.insertAdjacentHTML("beforeend",`
+            <tr>
+                <td>${data[i].name}</td>
+                <td>${data[i].status}</td>
+                <td>${data[i].last_trigger}</td>
+            </tr>`)
+        }
+        document.querySelector("#header").after(table);
     }
 }
 document.forms.join.addEventListener("submit", function(event) {
@@ -144,4 +174,5 @@ document.forms.signIn.addEventListener("submit", function(event) {
 	signIn(document.forms.signIn);
     event.currentTarget.submit();
 });
-document.querySelector("#update-button").addEventListener("click", update)
+document.querySelector("#update-button").addEventListener("click", update);
+savingChanges()
