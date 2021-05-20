@@ -97,7 +97,7 @@ a {
     border: 0;
     font-family: 'Quicksand', sans-serif;
     transition-property: background-color;
-    transition-duration: .3s;
+    transition-duration: .2s;
     transition-timing-function: ease-in;
 }
 .submit {

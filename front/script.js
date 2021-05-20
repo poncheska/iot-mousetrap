@@ -51,9 +51,9 @@ async function signIn(form) {
         updateButton.id="update-button";
         updateButton.className = "button update-button";
         updateButton.textContent = "update";
-        // updateButton.addEventListener("click", update);
-        // updateButton.addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
-        // updateButton.addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
+        updateButton.addEventListener("click", update);
+        updateButton.addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
+        updateButton.addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
         document.querySelector("#header").after(updateButton);
         let logOutButton = document.createElement('button');
         logOutButton.id="log-out-button";
@@ -61,8 +61,6 @@ async function signIn(form) {
         logOutButton.textContent = "log out";
         logOutButton.addEventListener("click", function(event) {localStorage.clear(); window.location.reload()});
         document.querySelector("#update-button").after(logOutButton);
-        // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
-        // localStorage.setItem('updateButton', jsonUpdateButton);
         let table = document.createElement('table');
         table.setAttribute("class", "table");
         table.setAttribute("id", "table");
@@ -86,7 +84,7 @@ async function signIn(form) {
             </tr>`)
         }
         document.querySelector("#header").after(table);
-        for (button of document.querySelectorAll('button')){
+        for (button of document.querySelectorAll('.button')){
             button.addEventListener("mouseover", function(event) {this.style.background = '#c42b05'});
             button.addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});}        
     }
@@ -168,7 +166,7 @@ function savingChanges(){
         logOutButton.addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
         document.querySelector("#update-button").after(logOutButton);
         document.querySelector("#header").after(table);
-        for (button of document.querySelectorAll('button')){
+        for (button of document.querySelectorAll('.button')){
             button.addEventListener("mouseover", function(event) {this.style.background = '#c42b05'});
             button.addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});}
     }
@@ -184,7 +182,7 @@ document.forms.signIn.addEventListener("submit", function(event) {
     event.currentTarget.submit();
 });
 savingChanges()
-for (button of document.querySelectorAll('button')){
+for (button of document.querySelectorAll('.button')){
     button.addEventListener("mouseover", function(event) {this.style.background = '#c42b05'});
     button.addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});
 }
