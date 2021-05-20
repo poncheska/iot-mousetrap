@@ -161,13 +161,13 @@ function savingChanges(){
 document.forms.join.addEventListener("submit", function(event) {
 	event.preventDefault();
 	signIn(document.forms.join);
-    // event.currentTarget.submit();
+    event.currentTarget.submit();
     window.location.reload();
 });
 document.forms.signIn.addEventListener("submit", function(event) {
     event.preventDefault();
 	signIn(document.forms.signIn);
-    // event.currentTarget.submit();
+    event.currentTarget.submit();
     window.location.reload();
 });
 savingChanges()
