@@ -46,26 +46,26 @@ async function signIn(form) {
             modalSignIn.classList.toggle("closed");
         }
         modalOverlay.classList.toggle("closed"); 
-        document.querySelector("#open-button").hidden = true;
-        let updateButton = document.createElement('button');
-        updateButton.id="update-button";
-        updateButton.className = "button update-button";
-        updateButton.textContent = "update";
-        document.querySelector("#header").after(updateButton);
-        let logOutButton = document.createElement('button');
-        logOutButton.id="log-out-button";
-        logOutButton.className = "button log-out-button";
-        logOutButton.textContent = "log out";
-        document.querySelector("#update-button").after(logOutButton);
-        // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
-        // localStorage.setItem('updateButton', jsonUpdateButton);
-        let table = document.createElement('table');
-        table.setAttribute("class", "table");
-        table.setAttribute("id", "table");
-        table.insertAdjacentHTML("beforeend",`
-        <th>name</th>
-        <th>status</th>
-        <th>last action</th>`);
+        // document.querySelector("#open-button").hidden = true;
+        // let updateButton = document.createElement('button');
+        // updateButton.id="update-button";
+        // updateButton.className = "button update-button";
+        // updateButton.textContent = "update";
+        // document.querySelector("#header").after(updateButton);
+        // let logOutButton = document.createElement('button');
+        // logOutButton.id="log-out-button";
+        // logOutButton.className = "button log-out-button";
+        // logOutButton.textContent = "log out";
+        // document.querySelector("#update-button").after(logOutButton);
+        // // let jsonUpdateButton = JSON.stringify(updateButton,['id','className','textContent']);
+        // // localStorage.setItem('updateButton', jsonUpdateButton);
+        // let table = document.createElement('table');
+        // table.setAttribute("class", "table");
+        // table.setAttribute("id", "table");
+        // table.insertAdjacentHTML("beforeend",`
+        // <th>name</th>
+        // <th>status</th>
+        // <th>last action</th>`);
         let responseMousetraps = await fetch('/mousetraps', {
             headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -73,15 +73,15 @@ async function signIn(form) {
         });
         let data = await responseMousetraps.json();
         localStorage.setItem('data', JSON.stringify(data));
-        for (let i = 0; i < data.length; i++){
-            table.insertAdjacentHTML("beforeend",`
-            <tr>
-                <td>${data[i].name}</td>
-                <td>${data[i].status}</td>
-                <td>${data[i].last_trigger}</td>
-            </tr>`)
-        }
-        document.querySelector("#header").after(table);
+        // for (let i = 0; i < data.length; i++){
+        //     table.insertAdjacentHTML("beforeend",`
+        //     <tr>
+        //         <td>${data[i].name}</td>
+        //         <td>${data[i].status}</td>
+        //         <td>${data[i].last_trigger}</td>
+        //     </tr>`)
+        // }
+        // document.querySelector("#header").after(table);
     }
     else{
         if (!document.querySelector("#sign-in-error")){
@@ -152,7 +152,8 @@ function savingChanges(){
         document.querySelector("#header").after(table);
         let logOutButton = document.createElement('button');
         logOutButton.id="log-out-button";
-        logOutButton.className = "button log-out-button";
+        logOutButton.classList.add('button');
+        logOutButton.classList.add('log-out-button');
         logOutButton.textContent = "log out";
         document.querySelector("#update-button").after(logOutButton);
     }
@@ -160,17 +161,20 @@ function savingChanges(){
 document.forms.join.addEventListener("submit", function(event) {
 	event.preventDefault();
 	signIn(document.forms.join);
-    event.currentTarget.submit();
+    // event.currentTarget.submit();
+    window.location.reload();
 });
 document.forms.signIn.addEventListener("submit", function(event) {
     event.preventDefault();
 	signIn(document.forms.signIn);
-    event.currentTarget.submit();
+    // event.currentTarget.submit();
+    window.location.reload();
 });
 savingChanges()
+document.querySelector("button").addEventListener("mouseover", function(event) {this.style.background = '#a52100'});
+document.querySelector("button").addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});
 document.querySelector("#update-button").addEventListener("click", update);
 document.querySelector("#update-button").addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
 document.querySelector("#update-button").addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
-document.querySelector("button").addEventListener("mouseover", function(event) {this.style.background = '#a52100'});
-document.querySelector("button").addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});
-document.querySelector("#log-out-button").addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
+document.querySelector("#log-out-button").addEventListener("click", function(event) {localStorage.clear(); window.location.reload()});
+
