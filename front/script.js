@@ -51,9 +51,9 @@ async function signIn(form) {
         updateButton.id="update-button";
         updateButton.className = "button update-button";
         updateButton.textContent = "update";
-        updateButton.addEventListener("click", update);
-        updateButton.addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
-        updateButton.addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
+        // updateButton.addEventListener("click", update);
+        // updateButton.addEventListener("mousedown", function(event) {this.style.background = '#5a1200'});
+        // updateButton.addEventListener("mouseup", function(event) {this.style.background = '#ff3300'});
         document.querySelector("#header").after(updateButton);
         let logOutButton = document.createElement('button');
         logOutButton.id="log-out-button";
@@ -86,6 +86,9 @@ async function signIn(form) {
             </tr>`)
         }
         document.querySelector("#header").after(table);
+        for (button of document.querySelectorAll('button')){
+            button.addEventListener("mouseover", function(event) {this.style.background = '#c42b05'});
+            button.addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});}        
     }
     else{
         if (!document.querySelector("#sign-in-error")){
@@ -162,8 +165,12 @@ function savingChanges(){
         logOutButton.classList.add('button');
         logOutButton.classList.add('log-out-button');
         logOutButton.textContent = "log out";
-        addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
+        logOutButton.addEventListener("click", function(event) {this.style.background = '#5a1200'; localStorage.clear(); window.location.reload()});
         document.querySelector("#update-button").after(logOutButton);
+        document.querySelector("#header").after(table);
+        for (button of document.querySelectorAll('button')){
+            button.addEventListener("mouseover", function(event) {this.style.background = '#c42b05'});
+            button.addEventListener("mouseout", function(event) {this.style.background = '#ff3300'});}
     }
 }
 document.forms.join.addEventListener("submit", function(event) {
