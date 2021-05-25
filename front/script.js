@@ -7,9 +7,9 @@ openButtonSignIn = document.querySelector("#open-button-sign-in");
 openButtonJoin = document.querySelector("#open-button-join");
 function getStringStatus(boolStatus){
     if (boolStatus){
-        return "triggered"
+        return "active"
     }
-    return "active"
+    return "triggered"
 }
 async function join(formdata) {
     let response = await fetch("/org/sign-up", {
