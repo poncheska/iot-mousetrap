@@ -111,12 +111,11 @@ a {
 }
 .table {
     position: relative;
-    margin-left: 0;
     width: 90%;
     height: 90%;
     padding: 20px;
     margin-top: 10px;
-    margin-left: 50px;
+    margin-left: 60px;
 }
 .table, th, td {
     border: 1px solid silver;
