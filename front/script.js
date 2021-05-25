@@ -9,7 +9,7 @@ function getStringStatus(boolStatus){
     if (boolStatus){
         return "triggered"
     }
-    return "not active"
+    return "active"
 }
 async function join(formdata) {
     let response = await fetch("/org/sign-up", {
